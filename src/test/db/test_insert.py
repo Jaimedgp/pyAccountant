@@ -1,6 +1,6 @@
 import pytest
 
-from ..db import InsertDB
+from ...db import InsertDB
 
 
 DATABASE = InsertDB(database='dist/test.db')
