@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS BANK_ACCOUNT(
 CREATE TABLE IF NOT EXISTS TRANSFER_TYPE(
     id              INTEGER         NOT NULL     PRIMARY KEY     AUTOINCREMENT,
     name            VARCHAR(50)     NOT NULL,
+    operation       VARCHAR(15)     NOT NULL    CHECK(operation IN ("expenditure", "income")),
     description     VARCHAR(200),
 
     CONSTRAINT name_unq UNIQUE (name)
@@ -32,5 +33,5 @@ CREATE TABLE IF NOT EXISTS TRANSFER(
     description VARCHAR(200),
 
     FOREIGN KEY (id_bank) REFERENCES BANK_ACCOUNT(id),
-    FOREIGN KEY (id_type) REFERENCES TRANSFERS_TYPES(id)
+    FOREIGN KEY (id_type) REFERENCES TRANSFER_TYPE(id)
 );
