@@ -22,7 +22,7 @@ class InsertDB():
         bank: str,
         alias: str,
         description: str="",
-    ) -> None:
+    ) -> bool:
         """
         Insert new bank account information into the database
 
@@ -44,15 +44,17 @@ class InsertDB():
                 """, (bank, alias, description))
             self.connect.commit()
 
-        except sqlite3.OperationalError:
-            pass
+            return True
+        except sqlite3.OperationalError as e:
+            print(e)
+            return False
 
     def types_insert(
         self,
         name: str,
         operation: str,
         description: str="",
-    ) -> None:
+    ) -> bool:
         """
         Insert new transaction type information into the database
 
@@ -74,8 +76,10 @@ class InsertDB():
                 """, (name, operation, description))
             self.connect.commit()
 
-        except sqlite3.OperationalError:
-            pass
+            return True
+        except sqlite3.OperationalError as e:
+            print(e)
+            return False
 
     def transfer_insert(
         self,
@@ -84,7 +88,7 @@ class InsertDB():
         amount: float,
         trans_date: date=date.today(),
         description: str="",
-    ) -> None:
+    ) -> bool:
         """
         Insert new transaction information into the database
 
@@ -108,5 +112,8 @@ class InsertDB():
                     VALUES (?,?,?,?,?);
                 """, (id_bank, id_type, amount, trans_date, description))
             self.connect.commit()
-        except sqlite3.OperationalError:
-            pass
+
+            return True
+        except sqlite3.OperationalError as e:
+            print(e)
+            return False

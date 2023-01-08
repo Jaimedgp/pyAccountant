@@ -12,9 +12,7 @@ DATABASE = InsertDB(database='dist/test.db')
     ("Unicaja", "Ahorros", "Esto es una prueba"),
 ])
 def test_bank(bank, alias, description):
-    DATABASE.bank_insert(bank, alias, description)
-
-    assert True
+    assert DATABASE.bank_insert(bank, alias, description)
 
 
 @pytest.mark.parametrize(
@@ -24,9 +22,7 @@ def test_bank(bank, alias, description):
     ("gastos comunes", "expenditure", "Prueba 1"),
 ])
 def test_types(name, operation, description):
-    DATABASE.types_insert(name, operation, description)
-
-    assert True
+    assert DATABASE.types_insert(name, operation, description)
 
 
 @pytest.mark.parametrize(
@@ -37,6 +33,4 @@ def test_types(name, operation, description):
     (3, 1, 125.5, "2022/01/07", "Prueba 4"),
 ])
 def test_trans(id_bank, id_type, amount, trans_date, description):
-    DATABASE.transfer_insert(id_bank, id_type, amount, trans_date, description)
-
-    assert True
+    assert DATABASE.transfer_insert(id_bank, id_type, amount, trans_date, description)
