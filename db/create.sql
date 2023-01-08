@@ -4,7 +4,7 @@
 -- Database with bank accounts information and activities
 --
 
-CREATE TABLE BANK_ACCOUNT(
+CREATE TABLE IF NOT EXISTS BANK_ACCOUNT(
     id              INTEGER         NOT NULL     PRIMARY KEY     AUTOINCREMENT,
     bank            VARCHAR(200)    NOT NULL,
     alias           VARCHAR(50)     NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE BANK_ACCOUNT(
 );
 
 
-CREATE TABLE TRANSFER_TYPE(
+CREATE TABLE IF NOT EXISTS TRANSFER_TYPE(
     id              INTEGER         NOT NULL     PRIMARY KEY     AUTOINCREMENT,
     name            VARCHAR(50)     NOT NULL,
     description     VARCHAR(200),
@@ -23,7 +23,7 @@ CREATE TABLE TRANSFER_TYPE(
 );
 
 
-CREATE TABLE TRANSFER(
+CREATE TABLE IF NOT EXISTS TRANSFER(
     id          INTEGER     NOT NULL PRIMARY KEY     AUTOINCREMENT,
     id_bank     INTEGER     NOT NULL,
     id_type     INTEGER     NOT NULL,
