@@ -1,10 +1,11 @@
 """
-    Module with the database object used to connect into database
+    Module with the database object used to c into database
     and interact with it
 """
 
-from datetime import date
 import sqlite3
+from datetime import date
+from typing import Optional
 
 
 class InsertDB():
@@ -12,16 +13,18 @@ class InsertDB():
         Manage DataBase tables for account information and activities
     """
 
-    def __init__(self, database: str='dist/account.db'):
+    from . import database
+
+    def __init__(self, database: sqlite3.Connection=database):
         """ Connect to database """
 
-        self.connect = sqlite3.connect(database)
+        self.c = database.cursor()
 
     def bank_insert(
         self,
         bank: str,
         alias: str,
-        description: str="",
+        description: Optional[str],
     ) -> bool:
         """
         Insert new bank account information into the database
@@ -38,11 +41,11 @@ class InsertDB():
         """
 
         try:
-            self.connect.execute("""
+            self.c.execute("""
                 INSERT INTO BANK_ACCOUNT (bank, alias, description)
                     VALUES (?,?,?);
                 """, (bank, alias, description))
-            self.connect.commit()
+            #self.c.commit()
 
             return True
         except sqlite3.OperationalError as e:
@@ -53,7 +56,7 @@ class InsertDB():
         self,
         name: str,
         operation: str,
-        description: str="",
+        description: Optional[str],
     ) -> bool:
         """
         Insert new transaction type information into the database
@@ -70,11 +73,11 @@ class InsertDB():
         """
 
         try:
-            self.connect.execute("""
+            self.c.execute("""
                 INSERT INTO TRANSFER_TYPE (name, operation, description)
                     VALUES (?,?,?);
                 """, (name, operation, description))
-            self.connect.commit()
+            #self.c.commit()
 
             return True
         except sqlite3.OperationalError as e:
@@ -86,8 +89,8 @@ class InsertDB():
         id_bank: int,
         id_type: int,
         amount: float,
+        description: Optional[str],
         trans_date: date=date.today(),
-        description: str="",
     ) -> bool:
         """
         Insert new transaction information into the database
@@ -107,11 +110,11 @@ class InsertDB():
         """
 
         try:
-            self.connect.execute("""
+            self.c.execute("""
                 INSERT INTO TRANSFER (id_bank, id_type, amount, date, description)
                     VALUES (?,?,?,?,?);
                 """, (id_bank, id_type, amount, trans_date, description))
-            self.connect.commit()
+            #self.c.commit()
 
             return True
         except sqlite3.OperationalError as e:

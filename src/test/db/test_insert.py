@@ -1,9 +1,11 @@
 import pytest
 
 from ...db import InsertDB
+from . import database
 
 
-DATABASE = InsertDB(database='dist/test.db')
+DATABASE = InsertDB(database)
+
 
 @pytest.mark.parametrize(
     'bank, alias, description', [
@@ -33,4 +35,6 @@ def test_types(name, operation, description):
     (3, 1, 125.5, "2022/01/07", "Prueba 4"),
 ])
 def test_trans(id_bank, id_type, amount, trans_date, description):
-    assert DATABASE.transfer_insert(id_bank, id_type, amount, trans_date, description)
+    assert DATABASE.transfer_insert(
+        id_bank, id_type,
+        amount, trans_date, description)
