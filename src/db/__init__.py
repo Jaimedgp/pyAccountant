@@ -3,7 +3,7 @@ import pkg_resources
 
 
 database_fl = pkg_resources.resource_filename(__name__, "dist/accountant.db")
-database = sqlite3.connect(database_fl)
+database = sqlite3.connect(database_fl, check_same_thread=False)
 print(database)
 
 # Create tables
