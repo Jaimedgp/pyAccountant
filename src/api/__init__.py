@@ -1,14 +1,16 @@
-from fastapi import FastAPI
-
 import sqlite3
 import pkg_resources
+
+from fastapi import FastAPI
 
 DATA = {}
 
 def get_database():
 
-    database_fl = pkg_resources.resource_filename("src.db", "dist/accountant.db")
-    database = sqlite3.connect(database_fl)
+    database_fl = pkg_resources.resource_filename(
+        "src.db", "dist/accountant.db")
+    database = sqlite3.connect(database_fl,
+                               check_same_thread=False)
 
     # Create tables
     sql_fl = pkg_resources.resource_filename("src.db", "create.sql")
@@ -33,5 +35,9 @@ def create_api(database=get_database()) -> FastAPI:
 
     from .routers.transactions import router as transactions
     app.include_router(transactions)
+
+    @app.get('/')
+    def root():
+        return {"status": "up"}
 
     return app
