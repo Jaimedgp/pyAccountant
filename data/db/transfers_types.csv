@@ -1,1 +1,9 @@
 name,operation,description
+ingresos uc,income,Sueldo de la universidad
+ingresos paro,income,Pago del Paro
+ingresos cic,income,Sueldo de CIC
+cobros,expenditure,Cobros de dudas pasadas
+gastos comunes,expenditure,Gastos generales tales como alimentacion
+gastos ahorros,expenditure,Gastos importantes contemplados en los ahorros para excepciones
+gastos ocio,expenditure,Transferencias mensuales del 25% de los beneficios generados
+contingencias,expenditure,Gastos no contemplados

@@ -1,1 +1,3 @@
 bank,alias,description
+CaixaBank,Principal,Cuenta principal con los gastos prioritarios
+CaixaBank,Imagin,Cuenta para los gastos de ocio

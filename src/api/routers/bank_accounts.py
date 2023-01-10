@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from typing import Optional
 
-from ...db import InsertDB
+from ...db import InsertDB, QueriesDB
 from .. import DATA
 
 router = APIRouter(
@@ -9,7 +9,8 @@ router = APIRouter(
     tags=["Bank account"],
     )
 
-DB = InsertDB(DATA["database"])
+insert_db = InsertDB(DATA["database"])
+queries_db = QueriesDB(DATA["database"])
 
 
 @router.post("/new/")
@@ -19,9 +20,17 @@ def insert_bank(
     description: Optional[str]="",
 ):
 
-    op = DB.bank_insert(bank, alias, description)
+    op = insert_db.bank_insert(bank, alias, description)
 
     if not op:
         return {"result": "failed"}
 
     return {"result": "done"}
+
+
+@router.get("/query/")
+def query_bank():
+
+    op = queries_db.bank_queries()
+
+    return op

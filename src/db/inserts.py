@@ -18,7 +18,7 @@ class InsertDB():
     def __init__(self, database: sqlite3.Connection=database):
         """ Connect to database """
 
-        self.c = database.cursor()
+        self.c = database
 
     def bank_insert(
         self,
@@ -45,7 +45,7 @@ class InsertDB():
                 INSERT INTO BANK_ACCOUNT (bank, alias, description)
                     VALUES (?,?,?);
                 """, (bank, alias, description))
-            #self.c.commit()
+            self.c.commit()
 
             return True
         except sqlite3.OperationalError as e:
@@ -77,7 +77,7 @@ class InsertDB():
                 INSERT INTO TRANSFER_TYPE (name, operation, description)
                     VALUES (?,?,?);
                 """, (name, operation, description))
-            #self.c.commit()
+            self.c.commit()
 
             return True
         except sqlite3.OperationalError as e:
@@ -114,7 +114,7 @@ class InsertDB():
                 INSERT INTO TRANSFER (id_bank, id_type, amount, date, description)
                     VALUES (?,?,?,?,?);
                 """, (id_bank, id_type, amount, trans_date, description))
-            #self.c.commit()
+            self.c.commit()
 
             return True
         except sqlite3.OperationalError as e:

@@ -13,3 +13,4 @@ with open(sql_fl, 'r') as sql:
     database.cursor().executescript(sql.read())
 
 from .inserts import InsertDB
+from .queries import QueriesDB
